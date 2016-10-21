@@ -1,4 +1,61 @@
-h1 {
-	color: pink;
+* {
+  box-sizing: border-box;
+  text-align: center;
+  margin: 0px;
+
+}body{
+	background-image:url(../images/background2.png);
+}
+.title {
+	background: white;
+	border: 10px solid #FFD700;
+	margin-top: 20px;
+}
+
+/*h1 {
+	color: black;
 	margin-top: 65px;
+	font-family: 'Sigmar One', cursive;
+	font-size: 60px;
+}*/
+
+#guess-remaining, #already-guessed, #scoreboard {
+	font-family: 'Cabin Sketch', cursive;
+	font-size: 25px;
+	margin-top: 30px;
+	color: black;
+	background: #FF69B4;
+	border: 6px solid black;
+	height: 150px;
+}
+
+#scoreboard {
+	padding-top: 55px;
+}
+
+#guess-remaining {
+	padding-top: 35px;
+}
+
+#already-guessed {
+	padding-top: 20px;
+}
+
+h3 {
+	color: black;
+	font-size: 35px;
+	font-family: 'Freckle Face', cursive;
+	background: #FFD700;
+	border: 6px solid #6495ED;
+}
+
+
+.word {
+	font-family: 'Caveat Brush', cursive;
+	text-align: center;
+	font-size: 50px;
+	margin: 10px;
+	padding: 20px;
+	background: #6495ED;
+	border: 6px solid #FF69B4;
 }
