@@ -1,55 +1,75 @@
-//Array of possible word choices
-	var cartoons = ['RUGRATS', 'ARTHUR', 'FRIENDS', 'DOUG', 'SEINFELD', 'RECESS', 'FRASIER', 'CATDOG', 'SIMPSONS', 'CHEERS', 'DARIA'];
-
-//generate hangman word
-	
-	var hangmanWord = cartoons[Math.floor(Math.random()*cartoons.length)];
-
 //global variables
 	var currentWord = document.getElementById('current-word');
 	var scoreboard = document.getElementById('scoreboard');
 	var guessRemaining = document.getElementById('guess-remaining');
-	var numGuess = 12;
 	var alreadyGuessedDiv = document.getElementById('already-guessed');
+	var tvShows = ['RUGRATS', 'ARTHUR', 'FRIENDS', 'DOUG', 'SEINFELD', 'RECESS', 'FRASIER', 'CATDOG', 'SIMPSONS', 'CHEERS', 'DARIA'];
+	var randomWord = ''
+	var hiddenWord = ''
+	var dashes = [];
+	var wins = 0;
+	var numGuess = ''
 	var letters = [];
 
-//display dashes (same number as letters in word)
-	var dashes = '_ '.repeat(hangmanWord.length);
-		
-	currentWord.innerHTML = 'Current Word: ' + dashes;
+	function getWord() {
+		randomWord = tvShows[Math.floor(Math.random()*tvShows.length)];
+		hiddenWord = randomWord.split('');
+		return hiddenWord;
+	}
 
-//take user guess and stores in userGuess
-	document.onkeyup = function(event) {
+	function restartGame() {
+		getWord();
+		letters.length = 0;
+		dashes.length = 0;
+		numGuess = 10;
 
-		var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+		for (var i = 0; i<hiddenWord.length; i++){
+			dashes.push('_ ');
+		};
 
-//displays it in Letters Already Guessed (if not duplicate) and subtracts 1 from guesses remaining
-		console.log(userGuess);
+		currentWord.innerHTML = 'Current Word: ' + dashes.join(' ');
+		scoreboard.innerHTML = 'Wins: ' + wins;
+		guessRemaining.innerHTML = 'Number of Guesses Remaining: ' + numGuess;
+		alreadyGuessedDiv.innerHTML = 'Letters Already Guessed:';
+	};
+
+	restartGame();
+
+	function compareWord() {
+		console.log(hiddenWord);
+		for (var j = 0; j<hiddenWord.length; j++) {
+			if (hiddenWord[j] === userGuess) {
+				dashes[j] = userGuess
+				currentWord.innerHTML = 'Current Word: ' + dashes.join(' ');
+			}
+		}
+	};
+
+	function lettersAlreadyGuessed() {
 		var duplicate = letters.includes(userGuess);
-		console.log(duplicate);
-
 		if (duplicate === false) {
 			letters.push(userGuess);
 			guessRemaining.innerHTML = 'Number of Guesses Remaining: ' + numGuess--;
-			alreadyGuessedDiv.innerHTML = 'Letters Already Guessed: ' + letters;
+			alreadyGuessedDiv.innerHTML = 'Letters Already Guessed: ' + letters.join(', ');
 		} else {
 			alert('You already guessed that letter!');
 		};
-
-//compare user guess to characters in hangman word string
-		// for (var i = 0; i < hangmanWord.length; i++) {
-		// 	if (userGuess === hangmanWord[i]) {
-		// 		var matchingLetter = dashes.replace(dashes[i], userGuess);
-		// 		currentWord.innerHTML = 'Current Word: ' + matchingLetter;
-		// 	}
-		// }
 	};
 
+	document.onkeyup = function(event) {
+		userGuess = String.fromCharCode(event.keyCode).toUpperCase();
+		compareWord();
+		lettersAlreadyGuessed();
+		if (dashes.toString() == hiddenWord.toString()){
+			alert('You Won!');
+			alert('The word was ' + randomWord);
+			wins++;
+			restartGame();
+		}
 
-	
-		
-
-
-
-
-
+		if (numGuess < 0) {
+			alert('Try again next time!');
+			alert('The word was ' + randomWord);
+			restartGame()
+		}
+	};
