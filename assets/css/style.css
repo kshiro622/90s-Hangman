@@ -12,13 +12,6 @@
 	margin-top: 20px;
 }
 
-/*h1 {
-	color: black;
-	margin-top: 65px;
-	font-family: 'Sigmar One', cursive;
-	font-size: 60px;
-}*/
-
 #guess-remaining, #already-guessed, #scoreboard {
 	font-family: 'Cabin Sketch', cursive;
 	font-size: 25px;
