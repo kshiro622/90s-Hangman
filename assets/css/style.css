@@ -2,8 +2,9 @@
   box-sizing: border-box;
   text-align: center;
   margin: 0px;
+}
 
-}body{
+body{
 	background-image:url(../images/background2.png);
 }
 .title {
